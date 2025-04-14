@@ -26,9 +26,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'c', 'c', 'c', 'c', 'c'},
                         {'d', 'd', 'd', 'd', 'd'}
                     },
-                    {false, 'J'},
+                    {false, 'J', UNDEFINED_KEY},
                     'R',
-                    UNDEFINED_KEY
                 },
                 {
                     { // layer[1]
@@ -43,9 +42,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'g', 'g', 'g', 'g', 'g'},
                         {'h', 'h', 'h', 'h', 'h'}
                     },
-                    {false, 'J'},
+                    {false, 'J', UNDEFINED_KEY},
                     'R',
-                    UNDEFINED_KEY
                 }
             }
         },
@@ -71,9 +69,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'k', 'k', 'k', 'k', 'k'},
                         {'l', 'l', 'l', 'l', 'l'}
                     },
-                    {false, 'J'},
+                    {false, 'J', UNDEFINED_KEY},
                     'R',
-                    UNDEFINED_KEY
                 },
                 {
                     { // layer[1]
@@ -88,9 +85,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'o', 'o', 'o', 'o', 'o'},
                         {'p', 'p', 'p', 'p', 'p'}
                     },
-                    {false, 'J'},
+                    {false, 'J', UNDEFINED_KEY},
                     'R',
-                    UNDEFINED_KEY
                 }
             }
         },
@@ -116,9 +112,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'t', 't', 't', 't', 't'},
                         {'u', 'u', 'u', 'u', 'u'}
                     },
-                    {false, 'J'},
+                    {false, 'J', UNDEFINED_KEY},
                     'R',
-                    UNDEFINED_KEY
                 },
                 {
                     { // layer[1]
@@ -133,9 +128,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'x', 'x', 'x', 'x', 'x'},
                         {'y', 'y', 'y', 'y', 'y'}
                     },
-                    {false, 'J'},
+                    {false, 'J', UNDEFINED_KEY},
                     'R',
-                    UNDEFINED_KEY
                 }
             }
         }

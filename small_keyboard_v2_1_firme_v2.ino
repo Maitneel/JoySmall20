@@ -4,8 +4,10 @@
 #include <Mouse.h>
 
 #include "Layer.h"
+#include "SmallKeyboardV2_1.h"
 
 extern const struct LayoutSet layout_set PROGMEM;
+SmallKeyboardV2_1 my_keyboard(true);
 
 int i = 0;
 int j = 0;
@@ -17,6 +19,7 @@ void setup() {
     Mouse.begin();
 
     Serial.begin(9600);
+    delay(2000);
 }
 
 
@@ -57,8 +60,10 @@ void test(const LayoutSet ls_test) {
 }
     
 
+int counter = 0;
+
 void loop() {
-    print_layout_set();
-    
-    delay(200);
+    // print_layout_set();
+    my_keyboard.temp_load(counter++);
+    delay(2000);
 }

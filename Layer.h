@@ -11,23 +11,23 @@
 
 
 struct Joystick {
-    const bool is_wheel;
-    const unsigned char switch_key; 
-    const unsigned char switch_mouse;
+    bool is_wheel;
+    unsigned char switch_key; 
+    unsigned char switch_mouse;
 };
 
 struct Layer {
-    const unsigned char mousemap[LAYER_HEIGHT][LAYER_WIDTH];
-    const unsigned char keymap[LAYER_HEIGHT][LAYER_WIDTH];
-    const Joystick joy;
-    const unsigned char re_switch;
+    unsigned char mousemap[LAYER_HEIGHT][LAYER_WIDTH];
+    unsigned char keymap[LAYER_HEIGHT][LAYER_WIDTH];
+    Joystick joy;
+    unsigned char re_switch;
 };
 
 
 struct LayerSet {
-    const uint8_t number_of_layer;
-    const uint8_t layer_key[LAYER_HEIGHT][LAYER_WIDTH];
-    const struct Layer layer[NUMBER_OF_LAYER];
+    uint8_t number_of_layer;
+    uint8_t layer_key[LAYER_HEIGHT][LAYER_WIDTH];
+    struct Layer layer[NUMBER_OF_LAYER];
 };
 
 struct LayoutSet {

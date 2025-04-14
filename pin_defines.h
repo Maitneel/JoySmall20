@@ -1,0 +1,43 @@
+#ifndef INCLUDE_SMALLKEYBOARDV2_2_H_
+#define INCLUDE_SMALLKEYBOARDV2_2_H_
+
+#define RE_SW 1
+#define OPTIONAL_PIN2 2
+
+#define RE_A 2
+#define RE_B 3
+
+#define LED1 4
+#define LED2 5
+
+#define IO_LOW3 6
+#define IO_LOW2 7
+#define IO_LOW1 8
+#define IO_LOW0 9
+
+#define AIO1 A3
+#define AIO2 A2
+
+#define OPTIONAL_PIN1 A1
+
+#define IO_HIGH4 A0
+#define IO_HIGH3 15
+#define IO_HIGH2 14
+#define IO_HIGH1 16
+#define IO_HIGH0 10
+
+#define JOYSTICK_X AIO2
+#define JOYSTICK_Y AIO1
+
+#define JOYSTICK_BUTTON OPTIONAL_PIN1
+
+#define JOYSTICK_IGNORE_LENGTH 20
+#define JOYSTICK_MAGNIFICATION 20
+#define WHEEL_MAGNIFICATION 30
+
+#define UNDEFINED_KEY 0x00
+
+#define MAXIMUM_LAYER_PER_KEYMAP 4
+#define MAXIMUM_KEYMAP_COUNT 4
+
+#endif // INCLUDE_SMALLKEYBOARDV2_2_H_
