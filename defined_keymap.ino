@@ -27,7 +27,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'d', 'd', 'd', 'd', 'd'}
                     },
                     {false, 'J'},
-                    'R'
+                    'R',
+                    UNDEFINED_KEY
                 },
                 {
                     { // layer[1]
@@ -43,7 +44,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'h', 'h', 'h', 'h', 'h'}
                     },
                     {false, 'J'},
-                    'R'
+                    'R',
+                    UNDEFINED_KEY
                 }
             }
         },
@@ -70,7 +72,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'l', 'l', 'l', 'l', 'l'}
                     },
                     {false, 'J'},
-                    'R'
+                    'R',
+                    UNDEFINED_KEY
                 },
                 {
                     { // layer[1]
@@ -86,7 +89,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'p', 'p', 'p', 'p', 'p'}
                     },
                     {false, 'J'},
-                    'R'
+                    'R',
+                    UNDEFINED_KEY
                 }
             }
         },
@@ -113,7 +117,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'u', 'u', 'u', 'u', 'u'}
                     },
                     {false, 'J'},
-                    'R'
+                    'R',
+                    UNDEFINED_KEY
                 },
                 {
                     { // layer[1]
@@ -129,7 +134,8 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'y', 'y', 'y', 'y', 'y'}
                     },
                     {false, 'J'},
-                    'R'
+                    'R',
+                    UNDEFINED_KEY
                 }
             }
         }

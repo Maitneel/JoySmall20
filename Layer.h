@@ -13,6 +13,7 @@
 struct Joystick {
     const bool is_wheel;
     const unsigned char switch_key; 
+    const unsigned char switch_mouse;
 };
 
 struct Layer {
