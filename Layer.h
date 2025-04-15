@@ -20,7 +20,8 @@ struct Layer {
     unsigned char mousemap[LAYER_HEIGHT][LAYER_WIDTH];
     unsigned char keymap[LAYER_HEIGHT][LAYER_WIDTH];
     Joystick joy;
-    unsigned char re_switch;
+    unsigned char re_mouse;
+    unsigned char re_key;
 };
 
 

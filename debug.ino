@@ -9,6 +9,12 @@ void debug_char(const char *str, const char c) {
     Serial.println((int)(c));
 }
 
+void debug_int(const char *str, const int n) {
+    Serial.print(str);
+    Serial.print(": ");
+    Serial.println(n);
+}
+
 void debug_ptr(const char *str, void *ptr) {
     Serial.print(str);
     Serial.print(": ");

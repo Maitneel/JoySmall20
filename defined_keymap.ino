@@ -2,7 +2,7 @@
 #include "Layer.h"
 
 const struct LayoutSet layout_set PROGMEM = {
-    3,
+    NUMBER_OF_LAYER_SET,
     {
         {
             2, // number_of_layer
@@ -27,6 +27,7 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'d', 'd', 'd', 'd', 'd'}
                     },
                     {false, 'J', UNDEFINED_KEY},
+                    UNDEFINED_KEY,
                     'R',
                 },
                 {
@@ -43,6 +44,7 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'h', 'h', 'h', 'h', 'h'}
                     },
                     {false, 'J', UNDEFINED_KEY},
+                    UNDEFINED_KEY,
                     'R',
                 }
             }
@@ -70,6 +72,7 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'l', 'l', 'l', 'l', 'l'}
                     },
                     {false, 'J', UNDEFINED_KEY},
+                    UNDEFINED_KEY,
                     'R',
                 },
                 {
@@ -86,6 +89,7 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'p', 'p', 'p', 'p', 'p'}
                     },
                     {false, 'J', UNDEFINED_KEY},
+                    UNDEFINED_KEY,
                     'R',
                 }
             }
@@ -113,6 +117,7 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'u', 'u', 'u', 'u', 'u'}
                     },
                     {false, 'J', UNDEFINED_KEY},
+                    UNDEFINED_KEY,
                     'R',
                 },
                 {
@@ -129,6 +134,7 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'y', 'y', 'y', 'y', 'y'}
                     },
                     {false, 'J', UNDEFINED_KEY},
+                    UNDEFINED_KEY,
                     'R',
                 }
             }

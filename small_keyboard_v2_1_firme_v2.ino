@@ -3,6 +3,7 @@
 #include <Keyboard.h>
 #include <Mouse.h>
 
+#include "pin_defines.h"
 #include "Layer.h"
 #include "SmallKeyboardV2_1.h"
 
@@ -15,10 +16,40 @@ int k = 0;
 int l = 0;
 
 void setup() {
+    pinMode(IO_LOW0, OUTPUT);
+    digitalWrite(IO_LOW0, HIGH);
+    pinMode(IO_LOW1, OUTPUT);
+    digitalWrite(IO_LOW1, HIGH);
+    pinMode(IO_LOW2, OUTPUT);
+    digitalWrite(IO_LOW2, HIGH);
+    pinMode(IO_LOW3, OUTPUT);
+    digitalWrite(IO_LOW3, HIGH);
+
+    pinMode(IO_HIGH0, INPUT_PULLUP);
+    pinMode(IO_HIGH1, INPUT_PULLUP);
+    pinMode(IO_HIGH2, INPUT_PULLUP);
+    pinMode(IO_HIGH3, INPUT_PULLUP);
+    pinMode(IO_HIGH4, INPUT_PULLUP);
+
+    // joystick
+    pinMode(JOYSTICK_X, INPUT);
+    pinMode(JOYSTICK_Y, INPUT);
+    pinMode(JOYSTICK_BUTTON, INPUT_PULLUP);
+
+    pinMode(RE_A, INPUT_PULLUP);
+    pinMode(RE_B, INPUT_PULLUP);
+    pinMode(RE_SW, INPUT_PULLUP);
+    pinMode(LED1, OUTPUT);
+    digitalWrite(LED1, LOW);
+    pinMode(LED2, OUTPUT);
+    digitalWrite(LED2, LOW);
+
     Keyboard.begin();
     Mouse.begin();
 
     Serial.begin(9600);
+
+    my_keyboard.InitilizeJoystickPosition();
     delay(2000);
 }
 
@@ -58,12 +89,9 @@ void test(const LayoutSet ls_test) {
     char c = pgm_read_byte(&(ls_test.layer_set[0].layer[0].keymap[0][0]));
     Serial.println(c);
 }
-    
-
-int counter = 0;
 
 void loop() {
-    // print_layout_set();
-    my_keyboard.temp_load(counter++);
-    delay(2000);
+    my_keyboard.UpdateStatus();
+    my_keyboard.SendMessage();
+    delay(2);
 }

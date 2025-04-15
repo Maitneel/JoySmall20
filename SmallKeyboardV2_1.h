@@ -19,11 +19,13 @@ class SmallKeyboardV2_1 {
  public:
     SmallKeyboardV2_1(bool is_used_joystick_button_arg);
 
+    void InitilizeJoystickPosition();
     void UpdateStatus();
     void SendMessage();
 
     void temp_load(const int index);
  private:
+    int layout_index;
     struct LayerSet keymap_;
 
     struct SwitchStatus prev_;
@@ -34,12 +36,13 @@ class SmallKeyboardV2_1 {
     enum RERotation re_stat;
 
     bool is_used_joystick_button_;
-    const int joystick_init_x;
-    const int joystick_init_y;
+    int joystick_init_x;
+    int joystick_init_y;
     int joystick_diff_x;
     int joystick_diff_y;
 
     void LoadLayerSet(int layout_index);
+    int GetLayerIndex();
 };
 
 
