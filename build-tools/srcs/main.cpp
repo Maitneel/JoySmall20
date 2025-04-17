@@ -12,13 +12,13 @@ int main(int argc, char **argv) {
     if (2 <= argc) {
         input_directory = argv[1];
     } else {
-        std::cerr << "input_director  : " << std::flush;
+        std::cerr << "input_directory  : " << std::flush;
         std::getline(std::cin, input_directory);
     }
     if (3 <= argc) {
         output_path = argv[2];
     } else {
-        std::cerr << "output_director : " << std::flush;
+        std::cerr << "output_directory : " << std::flush;
         std::getline(std::cin, output_path);
     }
     try {
