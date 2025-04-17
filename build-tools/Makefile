@@ -10,6 +10,8 @@ OBJS_DIR = ./objs
 OBJS_SUBDIR = ${sort ${dir ${OBJS}}}
 
 SRCS =	main.cpp \
+		firmweres_structor.cpp \
+		firmwere_generator.cpp \
 
 SRCS :=	${patsubst %,${SRCS_DIR}/%,${SRCS}}
 	
