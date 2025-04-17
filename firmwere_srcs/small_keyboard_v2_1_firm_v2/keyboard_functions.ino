@@ -188,24 +188,24 @@ void SmallKeyboardV2_1::SendMessage() {
 }
 
 void load_joystcick(const int layout_index, const int layer_index, struct Joystick *joystick) {
-    joystick->is_wheel = pgm_read_byte(&(layout_set.layer_set[layout_index].layer[layer_index].joy.is_wheel));
-    joystick->switch_key = pgm_read_byte(&(layout_set.layer_set[layout_index].layer[layer_index].joy.switch_key));
-    joystick->switch_mouse = pgm_read_byte(&(layout_set.layer_set[layout_index].layer[layer_index].joy.switch_mouse));
+    joystick->is_wheel = pgm_read_byte(&(layout_set.layout[layout_index].layer[layer_index].joy.is_wheel));
+    joystick->switch_key = pgm_read_byte(&(layout_set.layout[layout_index].layer[layer_index].joy.switch_key));
+    joystick->switch_mouse = pgm_read_byte(&(layout_set.layout[layout_index].layer[layer_index].joy.switch_mouse));
 }
 
 void load_re_mouse(const int layout_index, const int layer_index, unsigned char *re_mouse) {
-    re_mouse = pgm_read_byte(&(layout_set.layer_set[layout_index].layer[layer_index].re_mouse));
+    re_mouse = pgm_read_byte(&(layout_set.layout[layout_index].layer[layer_index].re_mouse));
 }
 
 void load_re_key(const int layout_index, const int layer_index, unsigned char *re_key) {
-    re_key = pgm_read_byte(&(layout_set.layer_set[layout_index].layer[layer_index].re_key));
+    re_key = pgm_read_byte(&(layout_set.layout[layout_index].layer[layer_index].re_key));
 }
 
 void load_layer(const int layout_index, const int layer_index, struct Layer *layer) {
     for (int i = 0; i < LAYER_HEIGHT; i++) {
         for (int j = 0; j < LAYER_WIDTH; j++) {
-            layer->mousemap[i][j] = pgm_read_byte(&(layout_set.layer_set[layout_index].layer[layer_index].mousemap[i][j]));
-            layer->keymap[i][j] = pgm_read_byte(&(layout_set.layer_set[layout_index].layer[layer_index].keymap[i][j]));
+            layer->mousemap[i][j] = pgm_read_byte(&(layout_set.layout[layout_index].layer[layer_index].mousemap[i][j]));
+            layer->keymap[i][j] = pgm_read_byte(&(layout_set.layout[layout_index].layer[layer_index].keymap[i][j]));
         }
     }
     load_joystcick(layout_index, layer_index, &(layer->joy));
@@ -216,7 +216,7 @@ void load_layer(const int layout_index, const int layer_index, struct Layer *lay
 void load_layer_key(const int layout_index, uint8_t layer_key[LAYER_HEIGHT][LAYER_WIDTH]) {
     for (int i = 0; i < LAYER_HEIGHT; i++) {
         for (int j = 0; j < LAYER_WIDTH; j++) {
-            layer_key[i][j] = pgm_read_byte(&(layout_set.layer_set->layer_key[i][j]));
+            layer_key[i][j] = pgm_read_byte(&(layout_set.layout->layer_key[i][j]));
         }
         
     }
@@ -224,7 +224,7 @@ void load_layer_key(const int layout_index, uint8_t layer_key[LAYER_HEIGHT][LAYE
 }
 
 void load_layer_set(const int layout_index, struct LayerSet *layer_set) {
-    layer_set->number_of_layer = pgm_read_byte(&(layout_set.layer_set[layout_index].number_of_layer));
+    layer_set->number_of_layer = pgm_read_byte(&(layout_set.layout[layout_index].number_of_layer));
     for (int i = 0; i < layer_set->number_of_layer; i++) {
         load_layer(layout_index, i, &(layer_set->layer[i]));
     }

@@ -33,7 +33,7 @@ struct LayerSet {
 
 struct LayoutSet {
     const uint8_t number_of_layer;
-    const LayerSet layer_set[NUMBER_OF_LAYER_SET];
+    const LayerSet layout[NUMBER_OF_LAYER_SET];
 };
 
 

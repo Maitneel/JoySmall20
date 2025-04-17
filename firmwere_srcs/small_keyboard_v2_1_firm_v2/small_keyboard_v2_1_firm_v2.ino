@@ -55,7 +55,7 @@ void setup() {
 
 
 void print_layout_set() {
-    char c = pgm_read_byte(&(layout_set.layer_set[i].layer[j].keymap[k][l]));
+    char c = pgm_read_byte(&(layout_set.layout[i].layer[j].keymap[k][l]));
     Serial.print(i);
     Serial.print(j);
     Serial.print(k);
@@ -72,7 +72,7 @@ void print_layout_set() {
         j++;
         k %= LAYER_HEIGHT;
     }
-    if (j == pgm_read_byte(&(layout_set.layer_set[j].number_of_layer))) {
+    if (j == pgm_read_byte(&(layout_set.layout[j].number_of_layer))) {
         j = 0;
         i++;
     }
@@ -86,7 +86,7 @@ void debug(const char *str, void *ptr) {
 }
 
 void test(const LayoutSet ls_test) {
-    char c = pgm_read_byte(&(ls_test.layer_set[0].layer[0].keymap[0][0]));
+    char c = pgm_read_byte(&(ls_test.layout[0].layer[0].keymap[0][0]));
     Serial.println(c);
 }
 
