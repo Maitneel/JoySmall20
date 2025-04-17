@@ -1,0 +1,11 @@
+firmwere_generator
+a.out
+*.o
+*.temp
+*.tmp
+temp/
+tmp/
+*/temp/
+*/tmp/
+.DS_Store
+.vscode
