@@ -1,0 +1,44 @@
+.key_row {
+    display: flex;
+    flex-direction: row;
+}
+
+.key_base {
+    width: 60px;
+    height: 60px;
+    padding: 1px;
+}
+
+.key_common {
+    width: 100%;
+    height: 100%;
+    font-size: small;
+    box-sizing: border-box;
+    border-style: solid;
+    border-radius: 10%;
+    border-color: #000000;
+    background-color: #ffffff;
+    display: grid;
+    text-align: center;
+}
+
+.layer_key {
+    border-color: #0099ff;
+
+}
+
+.targeting_key {
+    background-color: #66ff66;
+}
+
+.pressed_layer_key {
+    background-color: #00ccff;
+}
+
+.targeting_layer_key {
+    background-color: #0099ff;
+}
+
+.key_label {}
+
+.layer_label {}
