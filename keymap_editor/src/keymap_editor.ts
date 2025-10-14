@@ -80,7 +80,7 @@ class Layer {
   }
 }
 
-class LayerSet {
+class Layout {
   height: number;
   width: number;
   layer: Map<string, Layer>;
@@ -158,15 +158,15 @@ export class KeyMapEditor {
   buttons: HTMLElement[][];
   targetingKey: HTMLElement | undefined = undefined;
   targetingIndex: TwoDimIndex | undefined;
-  editingLayerSet: number = 0;;
-  layerSets: LayerSet[] = [];
+  editingLayout: number = 0;;
+  layouts: Layout[] = [];
   layerButtonCount: number = 0;
 
   constructor(buttons: HTMLElement[][]) {
     this.buttons = buttons;
     this.height = buttons.length;
     this.width = 0;
-    this.editingLayerSet = 0;
+    this.editingLayout = 0;
     for (let i = 0; i < buttons.length; i++) {
       const row = buttons[i];
       if (!row) {
@@ -181,7 +181,7 @@ export class KeyMapEditor {
         this.setClickHandler(i, j, currentButton);
       }
     }
-    this.layerSets[0] = new LayerSet(this.height, this.width);
+    this.layouts[0] = new Layout(this.height, this.width);
   }
 
   private setClickHandler(i: number, j: number, currentButton: HTMLElement) {
@@ -208,13 +208,13 @@ export class KeyMapEditor {
   }
 
   private switchLayer(index: TwoDimIndex): void {
-    const layerSet = this.layerSets[this.editingLayerSet];
-    if (!layerSet || !this.targetingIndex) {
+    const layout = this.layouts[this.editingLayout];
+    if (!layout || !this.targetingIndex) {
       return;
     }
-    layerSet.switchLayer(this.targetingIndex);
+    layout.switchLayer(this.targetingIndex);
     try {
-      this.updateLabel(layerSet.getLayer());
+      this.updateLabel(layout.getLayer());
     } catch (e) {
       console.error(e);
     }
@@ -259,17 +259,17 @@ export class KeyMapEditor {
         keyLabel.textContent = eventKey;
       }
       if (this.targetingIndex) {
-        this.layerSets[this.editingLayerSet]?.updateKey(eventKey, this.targetingIndex);
+        this.layouts[this.editingLayout]?.updateKey(eventKey, this.targetingIndex);
       }
     }
   }
 
   addLayer(): void {
-    const layerSet = this.layerSets[this.editingLayerSet];
-    if (!this.targetingIndex || !layerSet || !this.targetingKey) {
+    const layout = this.layouts[this.editingLayout];
+    if (!this.targetingIndex || !layout || !this.targetingKey) {
       return;
     }
-    layerSet.addLayer(this.targetingIndex);
+    layout.addLayer(this.targetingIndex);
     this.updateKey('N/A');
     let layerLabel = this.targetingKey.getElementsByClassName('layer_label')[0];
     if (layerLabel) {
@@ -280,9 +280,9 @@ export class KeyMapEditor {
   }
 
   removeLayer(): void {
-    const layerSet = this.layerSets[this.editingLayerSet];
+    const layout = this.layouts[this.editingLayout];
     if (this.targetingIndex) {
-      layerSet?.removeLayer(this.targetingIndex);
+      layout?.removeLayer(this.targetingIndex);
     }
     if (this.targetingKey) {
       this.targetingKey.classList.remove('layer_key', 'pressed_layer_key', 'targeting_layer_key');
@@ -292,7 +292,7 @@ export class KeyMapEditor {
       }
     }
     try {
-      const layer = layerSet?.getLayer();
+      const layer = layout?.getLayer();
       if (layer) {
         this.updateLabel(layer);
       }
