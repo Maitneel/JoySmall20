@@ -42,12 +42,16 @@ function initKeyMapEditor(): void {
       }
     }
   }
+  const addLayerKey = document.getElementById('add_layer_key')!;
+  addLayerKey.onclick = keyMapEditor.addLayer.bind(keyMapEditor);
+  const removeLayerKey = document.getElementById('remove_layer_key')!;
+  removeLayerKey.onclick = keyMapEditor.removeLayer.bind(keyMapEditor);
 }
 
 function main(): void {
   createPage();
   initKeyMapEditor();
-  document.getElementById('layer-4-0')!.classList.add('layer_key');
+  //document.getElementById('layer-4-0')!.classList.add('layer_key');
 }
 
 main();

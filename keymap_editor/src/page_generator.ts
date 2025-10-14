@@ -26,7 +26,7 @@ function createLayerLabel(label: string = ''): HTMLDivElement {
   return div;
 }
 
-function createKey(rowIndex: number, colIndex: number, isLayerKey: boolean = false, keyLabel: string = 'N/A', idPrefix: string = 'key-'): HTMLDivElement {
+function createKey(rowIndex: number, colIndex: number, isLayerKey: boolean = false, keyLabel: string = 'N/A', layerLabel: string = '', idPrefix: string = 'key-'): HTMLDivElement {
   const keyBase: HTMLDivElement = createKeyBase();
   const key: HTMLDivElement = document.createElement('div');
   key.id = idPrefix + rowIndex + '-' + colIndex;
@@ -36,7 +36,7 @@ function createKey(rowIndex: number, colIndex: number, isLayerKey: boolean = fal
     key.className = 'key_common';
   }
   const key_label = createKeyLabel(keyLabel);
-  const layer_label = createLayerLabel();
+  const layer_label = createLayerLabel(layerLabel);
   key.appendChild(key_label);
   key.appendChild(layer_label);
 
@@ -59,13 +59,25 @@ function createKeyRow(rowIndex: number, count: number, shouldAddKey: boolean[], 
       if (keyLabels && keyLabels[i]) {
         keyLabel = keyLabels[i];
       }
-      key = createKey(rowIndex, i, isLayerOption, keyLabel, idPrefix);
+      key = createKey(rowIndex, i, isLayerOption, keyLabel, undefined, idPrefix);
     } else {
       key = createKeyBase();
     }
     row.appendChild(key);
   }
   return row;
+}
+
+function createLayerKeys(rowIndex: number) {
+  const div: HTMLDivElement = document.createElement('div');
+  div.className = 'key_row';
+  const layerKey = createKey(rowIndex, 0, true, '', 'LAYER', 'layer');
+  layerKey.getElementsByClassName('key_common')[0]!.id = 'add_layer_key';
+  div.appendChild(layerKey);
+  const resetLayerKey = createKey(rowIndex, 1, true, '', 'RESET\nLAYER', 'layer');
+  resetLayerKey.getElementsByClassName('key_common')[0]!.id = 'remove_layer_key';
+  div.appendChild(resetLayerKey)
+  return div;
 }
 
 function createKeyboardArea(): HTMLDivElement {
@@ -112,6 +124,9 @@ function createKeyOptionsArea(): HTMLDivElement {
     const status = row.map(() => true);
     keyListArea.appendChild(createKeyRow(numpadOffset + i, row.length, status, undefined, row, 'options-'));
   });
+
+  const layerKeys = createLayerKeys(mainRows.length + numpadRows.length);
+  keyListArea.appendChild(layerKeys)
 
   return keyListArea;
 }
