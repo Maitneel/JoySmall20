@@ -26,7 +26,7 @@ class SmallKeyboardV2_1 {
     void temp_load(const int index);
  private:
     int layout_index;
-    struct LayerSet keymap_;
+    struct Layout keymap_;
 
     struct SwitchStatus prev_;
     struct SwitchStatus current_;
@@ -41,7 +41,7 @@ class SmallKeyboardV2_1 {
     int joystick_diff_x;
     int joystick_diff_y;
 
-    void LoadLayerSet(int layout_index);
+    void LoadLayout(int layout_index);
     int GetLayerIndex();
 };
 

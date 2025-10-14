@@ -42,24 +42,24 @@ void print_layer(const struct Layer *layer) {
     }
 }
 
-void print_layer_set(struct LayerSet *layer_set) {
+void print_layout(struct Layout *layout) {
     Serial.print("number of layer: ");
-    Serial.println(layer_set->number_of_layer);
+    Serial.println(layout->number_of_layer);
 
     Serial.println("layer_key");
     for (int i = 0; i < LAYER_HEIGHT; i++) {
         for (int j = 0; j < LAYER_WIDTH; j++) {
-            Serial.print(layer_set->layer_key[i][j]);
+            Serial.print(layout->layer_key[i][j]);
             Serial.print(" ");
         }
         Serial.println();
     }
 
-    for (size_t i = 0; i < layer_set->number_of_layer; i++) {
+    for (size_t i = 0; i < layout->number_of_layer; i++) {
         Serial.print("layer index: ");
         Serial.print(i);
         Serial.println("--------------------------------");
-        print_layer(&(layer_set->layer[i]));
+        print_layer(&(layout->layer[i]));
     }
     
 }
