@@ -131,7 +131,44 @@ function createKeyOptionsArea(): HTMLDivElement {
   return keyListArea;
 }
 
+function createLayoutChoices(): HTMLDivElement {
+  const div: HTMLDivElement = document.createElement('div');
+
+  const prevButton: HTMLButtonElement = document.createElement('button');
+  const label: HTMLSpanElement = document.createElement('span');
+  const addLayoutButton: HTMLButtonElement = document.createElement('button');
+  const removeLayoutButton: HTMLButtonElement = document.createElement('button');
+  const nextButton: HTMLButtonElement = document.createElement('button');
+
+  prevButton.textContent = '←';
+  label.textContent = 'layout 0'
+  addLayoutButton.textContent = 'Add Layout';
+  removeLayoutButton.textContent = 'Remove Layout';
+  nextButton.textContent = '→';
+
+  prevButton.className = 'layout_button';
+  label.className = 'layout_label';
+  addLayoutButton.className = 'layout_button';
+  removeLayoutButton.className = 'layout_button';
+  nextButton.className = 'layout_button';
+
+  prevButton.id = 'layout_prev_button';
+  label.id = 'layout_label';
+  addLayoutButton.id = 'add_layout_button';
+  removeLayoutButton.id = 'remove_layout_button';
+  nextButton.id = 'layout_next_button';
+
+  div.appendChild(prevButton);
+  div.appendChild(label);
+  div.appendChild(addLayoutButton);
+  div.appendChild(removeLayoutButton);
+  div.appendChild(nextButton);
+  return div;
+}
+
 export function createPage(): void {
+  root.appendChild(createLayoutChoices());
+  root.appendChild(document.createElement('hr'))
   root.appendChild(createKeyboardArea());
   root.appendChild(document.createElement('hr'))
   root.appendChild(createKeyOptionsArea());

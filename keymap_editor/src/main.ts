@@ -30,7 +30,7 @@ function createKeyMatrix(): HTMLElement[][] {
 }
 
 function initKeyMapEditor(): void {
-  const keyMapEditor = new KeyMapEditor(createKeyMatrix());
+  const keyMapEditor = new KeyMapEditor(createKeyMatrix(), document.getElementById('layout_label')!);
 
   const optionsArea = document.getElementById('key_options_area')!;
   const options = optionsArea.getElementsByClassName('key_common');
@@ -46,6 +46,16 @@ function initKeyMapEditor(): void {
   addLayerKey.onclick = keyMapEditor.addLayer.bind(keyMapEditor);
   const removeLayerKey = document.getElementById('remove_layer_key')!;
   removeLayerKey.onclick = keyMapEditor.removeLayer.bind(keyMapEditor);
+
+  const prevButton = document.getElementById('layout_prev_button')!;
+  prevButton.onclick = keyMapEditor.changeToPrevLayout.bind(keyMapEditor);
+  const addLayoutButton = document.getElementById('add_layout_button')!;
+  addLayoutButton.onclick = keyMapEditor.addLayout.bind(keyMapEditor);
+  const removeLayoutButton = document.getElementById('remove_layout_button')!;
+  removeLayoutButton.onclick = keyMapEditor.removeLayout.bind(keyMapEditor);
+  const nextButton = document.getElementById('layout_next_button')!;
+  nextButton.onclick = keyMapEditor.changeToNextLayout.bind(keyMapEditor);
+
 }
 
 function main(): void {

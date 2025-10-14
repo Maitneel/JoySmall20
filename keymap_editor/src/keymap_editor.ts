@@ -146,6 +146,10 @@ class Layout {
     return layer;
   }
 
+  getLayerStatus(): string[] {
+    return this.layerStatus;
+  }
+
   exportJson(): string {
     // TODO
     return 'some json string';
@@ -156,13 +160,14 @@ export class KeyMapEditor {
   height: number;
   width: number;
   buttons: HTMLElement[][];
+  layoutLabel: HTMLSpanElement;
   targetingKey: HTMLElement | undefined = undefined;
   targetingIndex: TwoDimIndex | undefined;
   editingLayout: number = 0;;
   layouts: Layout[] = [];
   layerButtonCount: number = 0;
 
-  constructor(buttons: HTMLElement[][]) {
+  constructor(buttons: HTMLElement[][], label: HTMLSpanElement) {
     this.buttons = buttons;
     this.height = buttons.length;
     this.width = 0;
@@ -182,6 +187,7 @@ export class KeyMapEditor {
       }
     }
     this.layouts[0] = new Layout(this.height, this.width);
+    this.layoutLabel = label;
   }
 
   private setClickHandler(i: number, j: number, currentButton: HTMLElement) {
@@ -213,6 +219,47 @@ export class KeyMapEditor {
       return;
     }
     layout.switchLayer(this.targetingIndex);
+    this.reRender();
+  }
+
+  updateHTMLClassName(): void {
+    const layout = this.layouts[this.editingLayout];
+    if (!layout) {
+      return;
+    }
+    const layerStatus = layout.getLayerStatus();
+    for (let i = 0; i < this.buttons.length; i++) {
+      const buttonsRow = this.buttons[i];
+      if (!buttonsRow) {
+        continue
+      }
+      for (let j = 0; j < buttonsRow.length; j++) {
+        const button = buttonsRow[j];
+        const status = layerStatus[i * this.width + j];
+        if (!button || status === undefined) {
+          continue;
+        }
+        button.classList.remove('targeting_key', 'targeting_layer_key');
+        if (status === LayerStatus.activeLayer) {
+          button.classList.add('layer_key', 'pressed_layer_key');
+          button.getElementsByClassName('layer_label')![0]!.textContent = 'LAYER'
+        } else if (status === LayerStatus.inactiveLayer) {
+          button.classList.add('layer_key')
+          button.classList.remove('pressed_layer_key');
+          button.getElementsByClassName('layer_label')![0]!.textContent = 'LAYER'
+        } else {
+          button.classList.remove('layer_key', 'pressed_layer_key');
+          button.getElementsByClassName('layer_label')![0]!.textContent = ''
+        }
+      }
+    }
+  }
+
+  private reRender() {
+    const layout = this.layouts[this.editingLayout];
+    if (!layout) {
+      return;
+    }
     try {
       this.updateLabel(layout.getLayer());
     } catch (e) {
@@ -299,6 +346,45 @@ export class KeyMapEditor {
     } catch (e) {
       console.error(e);
     }
+  }
+
+  changeToNextLayout(): void {
+    this.editingLayout++;
+    this.editingLayout %= this.layouts.length;
+    this.layoutLabel.textContent = "Layout " + this.editingLayout;
+    this.targetingKey = undefined;
+    this.targetingIndex = undefined;
+    this.updateHTMLClassName();;
+    this.reRender();
+  }
+
+  changeToPrevLayout(): void {
+    this.editingLayout--;
+    this.editingLayout += this.layouts.length;
+    this.editingLayout %= this.layouts.length;
+    this.layoutLabel.textContent = "Layout " + this.editingLayout;
+    this.targetingKey = undefined;
+    this.targetingIndex = undefined;
+    this.updateHTMLClassName();
+    this.reRender();
+  }
+
+  addLayout(): void {
+    this.layouts.push(new Layout(this.height, this.width));
+    this.editingLayout = this.layouts.length - 1;
+    this.layoutLabel.textContent = "Layout " + this.editingLayout;
+    this.targetingKey = undefined;
+    this.targetingIndex = undefined;
+    this.reRender();
+    this.updateHTMLClassName();
+  }
+
+  removeLayout(): void {
+    if (this.layouts.length < 2 || !confirm('Are you sure delete "Layout '+ this.editingLayout + '"?')) {
+      return;
+    }
+    this.layouts.splice(this.editingLayout, 1);
+    this.changeToNextLayout();
   }
 
   exportJson(): string {
