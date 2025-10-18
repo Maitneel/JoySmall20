@@ -112,6 +112,8 @@ function createKeyOptionsArea(): HTMLDivElement {
     ['KP_0', 'KP_.'],
   ];
 
+  const mouseRow = ['MO_L', 'MO_MID', 'MO_R'];
+
   mainRows.forEach((row, i) => {
     const status = row.map(() => true);
     keyListArea.appendChild(createKeyRow(i, row.length, status, undefined, row, 'options-'));
@@ -127,6 +129,11 @@ function createKeyOptionsArea(): HTMLDivElement {
 
   const layerKeys = createLayerKeys(mainRows.length + numpadRows.length);
   keyListArea.appendChild(layerKeys)
+
+  const mouseKey = createKeyRow(mainRows.length + numpadRows.length + 1, mouseRow.length, mainRows.map(() => true), undefined, mouseRow, 'options-');
+
+  keyListArea.appendChild(document.createElement('hr'));
+  keyListArea.appendChild(mouseKey)
 
   return keyListArea;
 }

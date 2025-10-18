@@ -135,11 +135,6 @@ export class KeyMapEditor {
           if (keyLabel) {
             keyLabel.textContent = key.keyEvent
           }
-          // TODO??
-          //const mouseLabel = target.getElementsByClassName('mouse_label')![0];
-          //if (mouseLabel) {
-          //  mouseLabel.textContent = key.mouseEvent
-          //}
         } catch (e) {
           console.error(e);
         }

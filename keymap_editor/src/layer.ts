@@ -26,8 +26,6 @@ export class Layer {
         if (key) {
           if (isLayerEvent(eventKey)) {
             key.keyEvent = eventKey;
-          } else if (isMouseEvent(eventKey)) {
-            key.mouseEvent = eventKey;  
           } else {
             key.keyEvent = eventKey;
           }
@@ -65,8 +63,8 @@ export class Layer {
   }
 }
 
-function newKey(mouseEvent: string | null = null, keyEvent: string | null = 'N/A', layerEvent: string | null = null): Key {
-  const key: Key = { mouseEvent, keyEvent, layerEvent }
+function newKey(keyEvent: string | null = 'N/A', layerEvent: string | null = null): Key {
+  const key: Key = { keyEvent, layerEvent }
   return key;
 };
 
