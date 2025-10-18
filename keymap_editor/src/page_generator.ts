@@ -166,8 +166,29 @@ function createLayoutChoices(): HTMLDivElement {
   return div;
 }
 
+function createJoystickModeSelector(): HTMLDivElement {
+  const div: HTMLDivElement = document.createElement('div');
+  const span: HTMLSpanElement = document.createElement('span');
+  span.textContent = 'Joystick Mode: ';
+  const select: HTMLSelectElement = document.createElement('select');
+  select.id = 'joystick_mode_selector';
+  const optionCursor: HTMLOptionElement = document.createElement('option');
+  optionCursor.textContent = 'Cursor';
+  optionCursor.value = 'cursor';
+  const optionWheel: HTMLOptionElement = document.createElement('option');
+  optionWheel.textContent = 'Wheel';
+  optionWheel.value = 'wheel';
+
+  select.appendChild(optionCursor);
+  select.appendChild(optionWheel);
+  div.appendChild(span);
+  div.appendChild(select);
+  return div;
+}
+
 export function createPage(): void {
   root.appendChild(createLayoutChoices());
+  root.appendChild(createJoystickModeSelector());
   root.appendChild(document.createElement('hr'))
   root.appendChild(createKeyboardArea());
   root.appendChild(document.createElement('hr'))

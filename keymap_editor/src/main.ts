@@ -30,7 +30,7 @@ function createKeyMatrix(): HTMLElement[][] {
 }
 
 function initKeyMapEditor(): void {
-  const keyMapEditor = new KeyMapEditor(createKeyMatrix(), document.getElementById('layout_label')!);
+  const keyMapEditor = new KeyMapEditor(createKeyMatrix(), document.getElementById('layout_label')!, document.getElementById('joystick_mode_selector')! as HTMLSelectElement);
 
   const optionsArea = document.getElementById('key_options_area')!;
   const options = optionsArea.getElementsByClassName('key_common');
@@ -38,7 +38,7 @@ function initKeyMapEditor(): void {
   for (let i = 0; i < options.length; i++) {
     if (options.item(i)) {
       (options.item(i) as HTMLElement).onclick = () => {
-        keyMapEditor.updateKey(options[i]?.textContent ?? '');
+        keyMapEditor.setKey(options[i]?.textContent ?? '');
       }
     }
   }
@@ -55,6 +55,8 @@ function initKeyMapEditor(): void {
   removeLayoutButton.onclick = keyMapEditor.removeLayout.bind(keyMapEditor);
   const nextButton = document.getElementById('layout_next_button')!;
   nextButton.onclick = keyMapEditor.changeToNextLayout.bind(keyMapEditor);
+  const joystickModeSelector = document.getElementById('joystick_mode_selector')!;
+  joystickModeSelector.onchange = keyMapEditor.setJoystickMode.bind(keyMapEditor);
 
 }
 

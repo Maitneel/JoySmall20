@@ -30,14 +30,18 @@ export class Layout {
     return layerName;
   }
 
-  updateKey(eventKey: string, index: TwoDimIndex): void {
-    this.layer.get(this.editingLayer)?.updateKey(eventKey, index)
+  setKey(eventKey: string, index: TwoDimIndex): void {
+    this.layer.get(this.editingLayer)?.setKey(eventKey, index)
+  }
+
+  setJoystickMode(mode: string): void {
+    this.layer.get(this.editingLayer)?.setJoystickMode(mode);
   }
 
   addLayer(target: TwoDimIndex): void {
     this.layerStatus[target.i * this.width + target.j] = LayerStatus.inactiveLayer;
     for (let [layerName, layerDate] of this.layer) {
-      layerDate.updateKey('N/A', target);
+      layerDate.setKey('N/A', target);
     }
   }
 

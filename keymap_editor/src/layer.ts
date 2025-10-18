@@ -1,10 +1,12 @@
-import type { TwoDimIndex } from "./interface/Two-Dim-Index";
-import type { Key } from "./interface/Key";
+import type { TwoDimIndex } from "./interface/Two-Dim-Index.js";
+import type { Key } from "./interface/Key.js";
+import { JoystickMode } from "./constants/Joystick-Mode.js";
 
 export class Layer {
   private height: number;
   private width: number;
   private keymap: Key[][];
+  private joystickMode: string;
 
   constructor(height: number, width: number) {
     this.height = height;
@@ -13,9 +15,10 @@ export class Layer {
     this.keymap = Array.from({ length: height }, () =>
       Array.from({ length: width }, () => newKey())
     );
+    this.joystickMode = JoystickMode.cursor;
   }
 
-  updateKey(eventKey: string, index: TwoDimIndex): void {
+  setKey(eventKey: string, index: TwoDimIndex): void {
     if (this.keymap[index.i]) {
       const row = this.keymap[index.i];
       if (row !== undefined) {
@@ -43,6 +46,17 @@ export class Layer {
       throw new Error('out of range j: ' + index.j);
     }
     return key;
+  }
+
+  setJoystickMode(mode: string): void {
+    if (mode !== JoystickMode.cursor && mode !== JoystickMode.wheel) {
+      return;
+    }
+    this.joystickMode = mode;
+  }
+
+  getJoystickMode(): string {
+    return this.joystickMode;
   }
 
   exportJson(): string {

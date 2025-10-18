@@ -9,13 +9,14 @@ export class KeyMapEditor {
   width: number;
   buttons: HTMLElement[][];
   layoutLabel: HTMLSpanElement;
+  joystickModeSelector: HTMLSelectElement;
   targetingKey: HTMLElement | undefined = undefined;
   targetingIndex: TwoDimIndex | undefined;
   editingLayout: number = 0;;
   layouts: Layout[] = [];
   layerButtonCount: number = 0;
 
-  constructor(buttons: HTMLElement[][], label: HTMLSpanElement) {
+  constructor(buttons: HTMLElement[][], label: HTMLSpanElement, joystickModeSelector: HTMLSelectElement) {
     this.buttons = buttons;
     this.height = buttons.length;
     this.width = 0;
@@ -36,6 +37,7 @@ export class KeyMapEditor {
     }
     this.layouts[0] = new Layout(this.height, this.width);
     this.layoutLabel = label;
+    this.joystickModeSelector = joystickModeSelector;
   }
 
   private setClickHandler(i: number, j: number, currentButton: HTMLElement) {
@@ -110,6 +112,7 @@ export class KeyMapEditor {
     }
     try {
       this.updateLabel(layout.getLayer());
+      this.updateJoystickModeValue(layout.getLayer().getJoystickMode());
     } catch (e) {
       console.error(e);
     }
@@ -144,7 +147,11 @@ export class KeyMapEditor {
     }
   }
 
-  updateKey(eventKey: string): void {
+  private updateJoystickModeValue(joystickMode: string): void {
+    this.joystickModeSelector.value = joystickMode;
+  }
+
+  setKey(eventKey: string): void {
     if (this.targetingKey?.classList.contains('layer_key') && !this.targetingKey?.classList.contains('pressed_layer_key')) {
       return;
     }
@@ -154,9 +161,14 @@ export class KeyMapEditor {
         keyLabel.textContent = eventKey;
       }
       if (this.targetingIndex) {
-        this.layouts[this.editingLayout]?.updateKey(eventKey, this.targetingIndex);
+        this.layouts[this.editingLayout]?.setKey(eventKey, this.targetingIndex);
       }
     }
+  }
+
+  setJoystickMode(): void {
+    const mode = this.joystickModeSelector.value;
+    this.layouts[this.editingLayout]?.setJoystickMode(mode);
   }
 
   addLayer(): void {
@@ -165,7 +177,7 @@ export class KeyMapEditor {
       return;
     }
     layout.addLayer(this.targetingIndex);
-    this.updateKey('N/A');
+    this.setKey('N/A');
     let layerLabel = this.targetingKey.getElementsByClassName('layer_label')[0];
     if (layerLabel) {
       layerLabel.textContent = 'LAYER';
