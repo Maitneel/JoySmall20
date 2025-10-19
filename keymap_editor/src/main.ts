@@ -29,6 +29,35 @@ function createKeyMatrix(): HTMLElement[][] {
   return keyMatrix;
 }
 
+async function inputFile(): Promise<string> {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  return new Promise<string>((resolve, reject) => {
+    input.onchange = () => {
+    if (!input.files) {
+        reject();
+        return null;
+      }
+      const file = input.files[0];
+      if (!file) {
+        reject();
+        return null;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+        } else {
+          reject();
+        }
+      }
+      reader.readAsText(file);
+    }
+    input.click();
+  })
+}
+
 function initKeyMapEditor(): void {
   const keyMapEditor = new KeyMapEditor(createKeyMatrix(), document.getElementById('layout_label')!, document.getElementById('joystick_mode_selector')! as HTMLSelectElement);
 
@@ -60,13 +89,23 @@ function initKeyMapEditor(): void {
 
   const downloadJsonBotton = document.getElementById('download_json')!;
   downloadJsonBotton.onclick = keyMapEditor.downloadJson.bind(keyMapEditor);
-  
+
   const savedDate = window.localStorage.getItem('keymap');
   if (savedDate) {
     try {
       keyMapEditor.loadJson(savedDate);
     } catch (e) {
       console.error('failed load json', e);
+    }
+  }
+
+  const importButton = document.getElementById('import_json')!;
+  importButton.onclick = async () => {
+    try {
+      const text = await inputFile();
+      keyMapEditor.loadJson(text);
+    } catch (e) {
+      alert('failed to import');
     }
   }
 

@@ -194,18 +194,23 @@ function createJoystickModeSelector(): HTMLDivElement {
   return div;
 }
 
-function createDownloadBottons(): HTMLDivElement {
+function createDownloadImportBottons(): HTMLDivElement {
   const div = document.createElement('div');
   const downloadJSONBotton = document.createElement('button');
   downloadJSONBotton.id = 'download_json';
   downloadJSONBotton.textContent = 'Download JSON'
+  const importJSONBotton = document.createElement('button');
+  importJSONBotton.id = 'import_json';
+  importJSONBotton.textContent = 'Import JSON'
+
   // TODO
   div.appendChild(downloadJSONBotton)
+  div.appendChild(importJSONBotton)
   return div;
 }
 
 export function createPage(): void {
-  root.appendChild(createDownloadBottons());
+  root.appendChild(createDownloadImportBottons());
   root.appendChild(document.createElement('hr'))
   root.appendChild(createLayoutChoices());
   root.appendChild(createJoystickModeSelector());

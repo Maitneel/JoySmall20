@@ -247,13 +247,14 @@ export class KeyMapEditor {
     if (obj.editingLayout) {
       this.editingLayout = obj.editingLayout
     }
-    if (obj.layouts) {
-      for (let i = 0; i < obj.layouts.length; i++) {
-        if (this.layouts.length <= i)  {
-          this.layouts[i] = new Layout(this.height, this.width);
-        }
-        this.layouts[i]?.loadFromObj(obj.layouts[i]);
+    if (!obj.layouts) {
+      throw new Error('failed load');
+    }
+    for (let i = 0; i < obj.layouts.length; i++) {
+      if (this.layouts.length <= i)  {
+        this.layouts[i] = new Layout(this.height, this.width);
       }
+      this.layouts[i]?.loadFromObj(obj.layouts[i]);
     }
     this.reRender();
   }
