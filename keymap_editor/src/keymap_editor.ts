@@ -116,6 +116,8 @@ export class KeyMapEditor {
     } catch (e) {
       console.error(e);
     }
+    this.layoutLabel.textContent = "Layout " + this.editingLayout;
+    this.updateHTMLClassName();
   }
 
   private updateLabel(layer: Layer): void {
@@ -206,10 +208,8 @@ export class KeyMapEditor {
   changeToNextLayout(): void {
     this.editingLayout++;
     this.editingLayout %= this.layouts.length;
-    this.layoutLabel.textContent = "Layout " + this.editingLayout;
     this.targetingKey = undefined;
     this.targetingIndex = undefined;
-    this.updateHTMLClassName();;
     this.reRender();
   }
 
@@ -217,21 +217,17 @@ export class KeyMapEditor {
     this.editingLayout--;
     this.editingLayout += this.layouts.length;
     this.editingLayout %= this.layouts.length;
-    this.layoutLabel.textContent = "Layout " + this.editingLayout;
     this.targetingKey = undefined;
     this.targetingIndex = undefined;
-    this.updateHTMLClassName();
     this.reRender();
   }
 
   addLayout(): void {
     this.layouts.push(new Layout(this.height, this.width));
     this.editingLayout = this.layouts.length - 1;
-    this.layoutLabel.textContent = "Layout " + this.editingLayout;
     this.targetingKey = undefined;
     this.targetingIndex = undefined;
     this.reRender();
-    this.updateHTMLClassName();
   }
 
   removeLayout(): void {
@@ -241,8 +237,32 @@ export class KeyMapEditor {
     this.layouts.splice(this.editingLayout, 1);
     this.changeToNextLayout();
   }
+  
+  json(): string {
+    return JSON.stringify(this);
+  }
 
-  exportJson(): string {
-    return 'some json string';
+  loadJson(json: string): void {
+    const obj = JSON.parse(json);
+    if (obj.editingLayout) {
+      this.editingLayout = obj.editingLayout
+    }
+    if (obj.layouts) {
+      for (let i = 0; i < obj.layouts.length; i++) {
+        if (this.layouts.length <= i)  {
+          this.layouts[i] = new Layout(this.height, this.width);
+        }
+        this.layouts[i]?.loadFromObj(obj.layouts[i]);
+      }
+    }
+    this.reRender();
+  }
+
+  downloadJson(): void {
+    const blobDate = new Blob([this.json()]);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blobDate);
+    a.download = 'keymap.json';
+    a.click();
   }
 }

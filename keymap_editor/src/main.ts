@@ -58,6 +58,18 @@ function initKeyMapEditor(): void {
   const joystickModeSelector = document.getElementById('joystick_mode_selector')!;
   joystickModeSelector.onchange = keyMapEditor.setJoystickMode.bind(keyMapEditor);
 
+  const savedDate = window.localStorage.getItem('keymap');
+  if (savedDate) {
+    try {
+      keyMapEditor.loadJson(savedDate);
+    } catch (e) {
+      console.error('failed load json', e);
+    }
+  }
+
+  window.onbeforeunload = () => {
+    window.localStorage.setItem('keymap', keyMapEditor.json());
+  }
 }
 
 function main(): void {

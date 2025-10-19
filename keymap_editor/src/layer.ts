@@ -57,9 +57,19 @@ export class Layer {
     return this.joystickMode;
   }
 
-  exportJson(): string {
-    // TODO
-    return 'some json string';
+  loadFromObj(obj: {keymap: [][], joystickMode: string} ): void {
+    for (let i = 0; i < this.height; i++) {
+      if (!this.keymap[i] || !obj.keymap[i]) {
+        continue;
+      }
+      for (let j = 0; j < this.width; j++) {
+        if (!this.keymap[i]![j] || !obj.keymap[i]![j]) {
+          continue;
+        }
+        this.keymap[i]![j]! = obj.keymap[i]![j]!
+      }
+    }
+    this.joystickMode = obj.joystickMode;
   }
 }
 

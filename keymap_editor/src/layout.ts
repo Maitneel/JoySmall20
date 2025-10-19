@@ -5,7 +5,7 @@ import { Layer } from "./layer.js";
 export class Layout {
   height: number;
   width: number;
-  layer: Map<string, Layer>;
+  layer: { [key: string]: Layer } = {};
   layerStatus: string[];
   editingLayer: string;
 
@@ -13,9 +13,8 @@ export class Layout {
     this.height = height;
     this.width = width;
     this.layerStatus = Array.from( {length: height * width}, () => LayerStatus.notLayer)
-    this.layer = new Map<string, Layer>();
     this.editingLayer = this.getLayerName();
-    this.layer.set(this.editingLayer, new Layer(height, width));
+    this.layer[this.editingLayer] = new Layer(height, width);
   }
 
   private getLayerName(): string {
@@ -31,17 +30,17 @@ export class Layout {
   }
 
   setKey(eventKey: string, index: TwoDimIndex): void {
-    this.layer.get(this.editingLayer)?.setKey(eventKey, index)
+    this.layer[this.editingLayer]?.setKey(eventKey, index)
   }
 
   setJoystickMode(mode: string): void {
-    this.layer.get(this.editingLayer)?.setJoystickMode(mode);
+    this.layer[this.editingLayer]?.setJoystickMode(mode);
   }
 
   addLayer(target: TwoDimIndex): void {
     this.layerStatus[target.i * this.width + target.j] = LayerStatus.inactiveLayer;
-    for (let [layerName, layerDate] of this.layer) {
-      layerDate.setKey('N/A', target);
+    for (let layerDate in this.layer) {
+      this.layer[layerDate]?.setKey('N/A', target);
     }
   }
 
@@ -59,13 +58,13 @@ export class Layout {
       this.layerStatus[switchKey.i * this.width + switchKey.j] = LayerStatus.inactiveLayer;
     }
     this.editingLayer = this.getLayerName();
-    if (!this.layer.has(this.editingLayer)) {
-      this.layer.set(this.editingLayer, new Layer(this.height, this.width));
+    if (!this.layer.hasOwnProperty(this.editingLayer)) {
+      this.layer[this.editingLayer] = new Layer(this.height, this.width);
     }
   }
 
   getLayer(): Layer{
-    const layer = this.layer.get(this.editingLayer);
+    const layer = this.layer[this.editingLayer];
     if (!layer) {
       throw new Error('layer not found');
     }
@@ -76,8 +75,13 @@ export class Layout {
     return this.layerStatus;
   }
 
-  exportJson(): string {
-    // TODO
-    return 'some json string';
+  loadFromObj(obj: { edithingLayer: string, layer: { [key: string]: {keymap: [][], joystickMode: string} }, layerStatus: string[]}) {
+    for (let property in obj.layer) {
+      if (!this.layer.hasOwnProperty(property)) {
+        this.layer[property] = new Layer(this.height, this.width);
+      }
+      this.layer[property]?.loadFromObj(obj.layer[property]!);
+    }
+    this.layerStatus = obj.layerStatus
   }
 }
