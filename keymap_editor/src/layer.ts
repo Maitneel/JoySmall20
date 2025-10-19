@@ -1,11 +1,10 @@
 import type { TwoDimIndex } from "./interface/Two-Dim-Index.js";
-import type { Key } from "./interface/Key.js";
 import { JoystickMode } from "./constants/Joystick-Mode.js";
 
 export class Layer {
   private height: number;
   private width: number;
-  private keymap: Key[][];
+  private keymap: string[][];
   private joystickMode: string;
 
   constructor(height: number, width: number) {
@@ -13,28 +12,19 @@ export class Layer {
     this.width = width;
 
     this.keymap = Array.from({ length: height }, () =>
-      Array.from({ length: width }, () => newKey())
+      Array.from({ length: width }, () => 'N/A')
     );
     this.joystickMode = JoystickMode.cursor;
   }
 
   setKey(eventKey: string, index: TwoDimIndex): void {
-    if (this.keymap[index.i]) {
-      const row = this.keymap[index.i];
-      if (row !== undefined) {
-        const key = row[index.j]
-        if (key) {
-          if (isLayerEvent(eventKey)) {
-            key.keyEvent = eventKey;
-          } else {
-            key.keyEvent = eventKey;
-          }
-        }
-      }
+    if (!this.keymap[index.i] || !this.keymap[index.i]![index.j]) {
+      return;
     }
+    this.keymap[index.i]![index.j]! = eventKey;
   }
 
-  getKey(index: TwoDimIndex): Key {
+  getKey(index: TwoDimIndex): string {
     const row = this.keymap[index.i];
     if (!row) {
       throw new Error('out of range i: ' + index.i);
@@ -72,11 +62,6 @@ export class Layer {
     this.joystickMode = obj.joystickMode;
   }
 }
-
-function newKey(keyEvent: string | null = 'N/A', layerEvent: string | null = null): Key {
-  const key: Key = { keyEvent, layerEvent }
-  return key;
-};
 
 function isLayerEvent(event: string): boolean {
   // TODO

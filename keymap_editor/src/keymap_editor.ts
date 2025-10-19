@@ -135,7 +135,7 @@ export class KeyMapEditor {
           }
           const keyLabel = target.getElementsByClassName('key_label')![0];
           if (keyLabel) {
-            keyLabel.textContent = key.keyEvent
+            keyLabel.textContent = key
           }
         } catch (e) {
           console.error(e);
