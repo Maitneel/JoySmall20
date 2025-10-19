@@ -259,11 +259,36 @@ export class KeyMapEditor {
     this.reRender();
   }
 
-  downloadJson(): void {
-    const blobDate = new Blob([this.json()]);
+  private download(data: string, filename: string) {
+    const blobDate = new Blob([data]);
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blobDate);
-    a.download = 'keymap.json';
+    a.download = filename;
     a.click();
+  }
+
+  downloadJson(): void {
+    this.download(this.json(), 'keymap.json');
+  }
+
+  downloadKeymap(): void {
+    let data: string = '';
+    data += '#include <avr/pgmspace.h>\n'
+    data += '#include "Layer.h"\n'
+    data += '\n'
+    data += '#define NUMBER_OF_LAYER_SET ' + this.layouts.length + '\n';
+    data += '\n'
+    data += 'const struct LayoutSet layout_set PROGMEM = {\n'
+    data += '    NUMBER_OF_LAYER_SET,\n';
+    for (let i = 0; i < this.layouts.length; i++) {
+      const layoutKeymap = this.layouts[i]?.getKeymap();
+      if (layoutKeymap) {
+        data += layoutKeymap;
+      }
+    }
+    data += '};\n'
+    //this.download(data, 'defined_keymap.ino');
+    console.log(data);
+    navigator.clipboard.writeText(data);
   }
 }

@@ -202,10 +202,13 @@ function createDownloadImportBottons(): HTMLDivElement {
   const importJSONBotton = document.createElement('button');
   importJSONBotton.id = 'import_json';
   importJSONBotton.textContent = 'Import JSON'
+  const downloadKempaHeader = document.createElement('button');
+  downloadKempaHeader.id = 'download_keymap';
+  downloadKempaHeader.textContent = 'Download defined_keymap.h'
 
-  // TODO
   div.appendChild(downloadJSONBotton)
   div.appendChild(importJSONBotton)
+  div.appendChild(downloadKempaHeader)
   return div;
 }
 

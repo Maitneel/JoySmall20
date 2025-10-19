@@ -17,10 +17,10 @@ export class Layout {
     this.layer[this.editingLayer] = new Layer(height, width);
   }
 
-  private getLayerName(): string {
+  private getLayerName(key: string[] = this.layerStatus): string {
     let layerName = '';
-    for (let i = 0; i < this.layerStatus.length; i++) {
-      if (this.layerStatus[i] === LayerStatus.activeLayer) {
+    for (let i = 0; i < key.length; i++) {
+      if (key[i] === LayerStatus.activeLayer) {
         layerName += '1,';
       } else {
         layerName += '0,';
@@ -83,5 +83,82 @@ export class Layout {
       this.layer[property]?.loadFromObj(obj.layer[property]!);
     }
     this.layerStatus = obj.layerStatus
+  }
+
+  private getCountOfLayer(): number {
+    let layerKeyCount = 0;
+    for (let i = 0; i < this.layerStatus.length; i++) {
+      if (this.layerStatus[i] !== LayerStatus.notLayer) {
+        layerKeyCount++;
+      }
+    }
+    return Math.pow(2, layerKeyCount);
+  }
+
+  private getLayerData(): string {
+    let key: string[] = this.layerStatus;
+    for (let i = 0; i < key.length; i++) {
+      if (key[i] === LayerStatus.activeLayer) {
+        key[i] = LayerStatus.inactiveLayer;
+      }
+    }
+    const defaultLayerKey = this.getLayerName(key);
+    const defaultLayer = this.layer[defaultLayerKey]!;
+    
+    let data: string = '';
+    const recursion = (index: number): void => {
+      if (index === -1) {
+        const keyString = this.getLayerName(key);
+        let layer: Layer;
+        if (this.layer.hasOwnProperty(keyString)) {
+          layer = this.layer[keyString]!;
+        } else {
+          layer = defaultLayer;
+        }
+        data += layer.getKeymap();
+        return;
+      }
+      if (key[index] === LayerStatus.activeLayer) {
+        key[index] = LayerStatus.inactiveLayer;
+      }
+      recursion(index - 1);
+      if (key[index] !== LayerStatus.notLayer) {
+        key[index] = LayerStatus.activeLayer;
+        recursion(index - 1);
+        key[index] = LayerStatus.inactiveLayer;
+      }
+    }
+    recursion(this.layerStatus.length - 1);
+    return data;
+  }
+
+  getKeymap(): string {
+    let data: string = '';
+
+    data += '    {\n';
+    data += '        {\n';
+    data += '            ' + this.getCountOfLayer() +  ',\n';
+    data += '            {\n';
+    let layerIndex = 1;
+    for (let i = 0; i < this.height; i++) {
+      data += '                {';
+      for (let j = 0; j < this.width; j++) {
+        if (this.layerStatus[i * this.width + j] === LayerStatus.notLayer) {
+          data += '0';
+        } else {
+          data += layerIndex;
+          layerIndex = layerIndex << 1;
+        }
+        data += ', ';
+      }
+      data += '},\n';
+    }
+    data += '            },\n';
+    data += '            {\n';
+    data += this.getLayerData();
+    data += '            }\n';
+    data += '        }\n';
+    data += '    }\n';
+    return data;
   }
 }

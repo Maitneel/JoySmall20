@@ -109,6 +109,9 @@ function initKeyMapEditor(): void {
     }
   }
 
+  const downloadKeymaButton = document.getElementById('download_keymap')!
+  downloadKeymaButton.onclick = keyMapEditor.downloadKeymap.bind(keyMapEditor);
+
   window.onbeforeunload = () => {
     window.localStorage.setItem('keymap', keyMapEditor.json());
   }

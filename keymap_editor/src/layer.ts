@@ -1,5 +1,6 @@
 import type { TwoDimIndex } from "./interface/Two-Dim-Index.js";
 import { JoystickMode } from "./constants/Joystick-Mode.js";
+import { convertKeycode } from "./keycode_converter.js";
 
 export class Layer {
   private height: number;
@@ -47,7 +48,7 @@ export class Layer {
     return this.joystickMode;
   }
 
-  loadFromObj(obj: {keymap: [][], joystickMode: string} ): void {
+  loadFromObj(obj: { keymap: [][], joystickMode: string }): void {
     for (let i = 0; i < this.height; i++) {
       if (!this.keymap[i] || !obj.keymap[i]) {
         continue;
@@ -60,6 +61,76 @@ export class Layer {
       }
     }
     this.joystickMode = obj.joystickMode;
+  }
+
+  getMouseKeymap(): string {
+    let data: string = '';
+    data += '                    {\n';
+    for (let i = 0; i < this.height; i++) {
+      data += '                        {';
+      for (let j = 0; j < this.width; j++) {
+        if (this.keymap[i] === undefined || this.keymap[i]![j] === undefined) {
+          data += 'UNDEFINED_KEY';
+        } else {
+          data += convertKeycode(this.keymap[i]![j]!, true);
+        }
+        data += ', ';
+      }
+      data += '},\n';
+    }
+    data += '                    },\n';
+    return data;
+  }
+  
+  getKeyKeymap(): string {
+    let data: string = '';
+    data += '                    {\n';
+    for (let i = 0; i < this.height; i++) {
+      data += '                        {';
+      for (let j = 0; j < this.width; j++) {
+        if (this.keymap[i] === undefined || this.keymap[i]![j] === undefined) {
+          data += 'UNDEFINED_KEY';
+        } else {
+          data += convertKeycode(this.keymap[i]![j]!, false);
+        }
+        data += ', ';
+      }
+      data += '},\n';
+    }
+    data += '                    },\n';
+    return data;
+  }
+
+  getJoystickSetting(): string {
+    let data: string = '';
+    data += '                    {'
+    if (this.joystickMode) {
+      data += 'true, ';
+    } else {
+      data += 'false, ';
+    }
+    data += 'UNDEFINED_KEY, '; // joystick mouse;
+    data += 'UNDEFINED_KEY, '; // joystick key;
+    data += '},\n';
+    return data;
+  }
+
+  getRotaryEncoderSetting(): string {
+    let data: string = '';
+    data += '                    UNDEFINED_KEY,\n'; // rotary encoder mouse;
+    data += '                    UNDEFINED_KEY,\n'; // rotary encoder key;
+    return data;
+  }
+
+  getKeymap(): string {
+    let data: string = '';
+    data += '                {\n';
+    data += this.getMouseKeymap();
+    data += this.getKeyKeymap();
+    data += this.getJoystickSetting();
+    data += this.getRotaryEncoderSetting();
+    data += '                },\n'
+    return data;
   }
 }
 
