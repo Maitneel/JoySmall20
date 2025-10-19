@@ -58,6 +58,9 @@ function initKeyMapEditor(): void {
   const joystickModeSelector = document.getElementById('joystick_mode_selector')!;
   joystickModeSelector.onchange = keyMapEditor.setJoystickMode.bind(keyMapEditor);
 
+  const downloadJsonBotton = document.getElementById('download_json')!;
+  downloadJsonBotton.onclick = keyMapEditor.downloadJson.bind(keyMapEditor);
+  
   const savedDate = window.localStorage.getItem('keymap');
   if (savedDate) {
     try {

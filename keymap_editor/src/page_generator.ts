@@ -194,7 +194,19 @@ function createJoystickModeSelector(): HTMLDivElement {
   return div;
 }
 
+function createDownloadBottons(): HTMLDivElement {
+  const div = document.createElement('div');
+  const downloadJSONBotton = document.createElement('button');
+  downloadJSONBotton.id = 'download_json';
+  downloadJSONBotton.textContent = 'Download JSON'
+  // TODO
+  div.appendChild(downloadJSONBotton)
+  return div;
+}
+
 export function createPage(): void {
+  root.appendChild(createDownloadBottons());
+  root.appendChild(document.createElement('hr'))
   root.appendChild(createLayoutChoices());
   root.appendChild(createJoystickModeSelector());
   root.appendChild(document.createElement('hr'))
