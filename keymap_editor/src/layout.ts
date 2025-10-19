@@ -85,7 +85,7 @@ export class Layout {
     this.layerStatus = obj.layerStatus
   }
 
-  private getCountOfLayer(): number {
+  getCountOfLayer(): number {
     let layerKeyCount = 0;
     for (let i = 0; i < this.layerStatus.length; i++) {
       if (this.layerStatus[i] !== LayerStatus.notLayer) {

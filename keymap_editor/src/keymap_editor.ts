@@ -271,12 +271,31 @@ export class KeyMapEditor {
     this.download(this.json(), 'keymap.json');
   }
 
-  downloadKeymap(): void {
+  getMaxlayerCount(): number {
+    let maxLayerCount = 1;
+    for (let i = 0; i < this.layouts.length; i++) {
+      maxLayerCount = Math.max(maxLayerCount, this.layouts[i]!.getCountOfLayer());
+    }
+    return maxLayerCount;
+  }
+
+  private generateCustomSizeData(): string {
+    let data: string = '';    
+    data += '#ifndef DEFINE_CUSTOM_SIZE_H_\n';
+    data += '#define DEFINE_CUSTOM_SIZE_H_\n';
+    data += '\n';
+    data += '#define NUMBER_OF_LAYER_SET ' + this.layouts.length + '\n';
+    data += '#define NUMBER_OF_LAYER_SET ' + this.getMaxlayerCount() + '\n';
+    data += '\n';
+    data += '#endif  // DEFINE_CUSTOM_SIZE_H_\n';
+    return data;
+  }
+
+  private generateCustomKeymapData(): string {
     let data: string = '';
     data += '#include <avr/pgmspace.h>\n'
     data += '#include "Layer.h"\n'
-    data += '\n'
-    data += '#define NUMBER_OF_LAYER_SET ' + this.layouts.length + '\n';
+    data += '#include "define_custom_size.h"\n'
     data += '\n'
     data += 'const struct LayoutSet layout_set PROGMEM = {\n'
     data += '    NUMBER_OF_LAYER_SET,\n';
@@ -287,8 +306,16 @@ export class KeyMapEditor {
       }
     }
     data += '};\n'
-    //this.download(data, 'defined_keymap.ino');
-    console.log(data);
-    navigator.clipboard.writeText(data);
+    return data;
+  }
+
+  downloadCustomSize(): void {
+    const customSizeData = this.generateCustomSizeData();
+    this.download(customSizeData, 'define_custom_size.h');
+  }
+
+  downloadCustomKeymap(): void {
+    const customKeymapData = this.generateCustomKeymapData();
+    this.download(customKeymapData, 'define_custom_keymap.ino');
   }
 }

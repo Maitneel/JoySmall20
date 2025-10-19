@@ -198,17 +198,22 @@ function createDownloadImportBottons(): HTMLDivElement {
   const div = document.createElement('div');
   const downloadJSONBotton = document.createElement('button');
   downloadJSONBotton.id = 'download_json';
-  downloadJSONBotton.textContent = 'Download JSON'
+  downloadJSONBotton.textContent = 'Download JSON';
   const importJSONBotton = document.createElement('button');
   importJSONBotton.id = 'import_json';
-  importJSONBotton.textContent = 'Import JSON'
-  const downloadKempaHeader = document.createElement('button');
-  downloadKempaHeader.id = 'download_keymap';
-  downloadKempaHeader.textContent = 'Download defined_keymap.h'
+  importJSONBotton.textContent = 'Import JSON';
+  const downloadCustomSize = document.createElement('button');
+  downloadCustomSize.id = 'download_custom_size';
+  downloadCustomSize.textContent = 'Download define_custom_size.h';
+  const donwloadCustomKeymap = document.createElement('button');
+  donwloadCustomKeymap.id = 'download_custom_keymap';
+  donwloadCustomKeymap.textContent = 'Download define_custom_keymap.ino';
 
-  div.appendChild(downloadJSONBotton)
-  div.appendChild(importJSONBotton)
-  div.appendChild(downloadKempaHeader)
+
+  div.appendChild(downloadJSONBotton);
+  div.appendChild(importJSONBotton);
+  div.appendChild(downloadCustomSize);
+  div.appendChild(donwloadCustomKeymap);
   return div;
 }
 

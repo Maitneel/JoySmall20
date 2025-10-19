@@ -1,14 +1,12 @@
 #ifndef INCLUDE_LAYER_H_
 #define INCLUDE_LAYER_H_
 
+#include "define_custom_size.h"
+
 #define LAYER_HEIGHT 4
 #define LAYER_WIDTH 5
 
-#define NUMBER_OF_LAYER 2
-#define NUMBER_OF_LAYER_SET 3
-
 #define UNDEFINED_KEY 0
-
 
 struct Joystick {
     bool is_wheel;

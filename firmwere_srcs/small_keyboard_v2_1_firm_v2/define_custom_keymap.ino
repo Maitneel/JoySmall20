@@ -1,5 +1,6 @@
 #include <avr/pgmspace.h> 
 #include "Layer.h"
+#include "define_custom_size.h"
 
 const struct LayoutSet layout_set PROGMEM = {
     NUMBER_OF_LAYER_SET,

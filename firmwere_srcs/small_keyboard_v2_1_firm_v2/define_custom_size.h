@@ -1,0 +1,7 @@
+#ifndef DEFINE_CUSTOM_SIZE_H_
+#define DEFINE_CUSTOM_SIZE_H_
+
+#define NUMBER_OF_LAYER 2
+#define NUMBER_OF_LAYER_SET 3
+
+#endif  // DEFINE_CUSTOM_SIZE_H_
