@@ -35,10 +35,10 @@ class Layer {
 };
 
 
-class LayerSet {
+class Layout {
  public:
-    LayerSet(const std::string &directory_path_arg);
-    ~LayerSet();
+    Layout(const std::string &directory_path_arg);
+    ~Layout();
 
     size_t GetLayerCount() const;
     void Parse();
@@ -61,7 +61,7 @@ class LayoutSet {
 
  private:
     const std::string directory_path_;
-    std::map<int, LayerSet> layout_;
+    std::map<int, Layout> layout_;
 };
 
 #endif // INCLUDE_FIRMWERES_STRUCTOR_HPP_

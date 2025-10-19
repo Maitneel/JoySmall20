@@ -48,7 +48,7 @@ SmallKeyboardV2_1::SmallKeyboardV2_1(bool is_used_joystick_button_arg) :
     joystick_diff_x(0),
     joystick_diff_y(0)
 {
-    LoadLayerSet(0);
+    LoadLayout(0);
 }
 
 void SmallKeyboardV2_1::InitilizeJoystickPosition() {
@@ -106,7 +106,7 @@ void SmallKeyboardV2_1::UpdateStatus() {
     }
     layout_index %= NUMBER_OF_LAYER_SET;
     if (re_stat != no_rotation) {
-        LoadLayerSet(layout_index);
+        LoadLayout(layout_index);
     }
 
 }
@@ -223,19 +223,19 @@ void load_layer_key(const int layout_index, uint8_t layer_key[LAYER_HEIGHT][LAYE
     
 }
 
-void load_layer_set(const int layout_index, struct LayerSet *layer_set) {
-    layer_set->number_of_layer = pgm_read_byte(&(layout_set.layout[layout_index].number_of_layer));
-    for (int i = 0; i < layer_set->number_of_layer; i++) {
-        load_layer(layout_index, i, &(layer_set->layer[i]));
+void load_layout(const int layout_index, struct Layout *layout) {
+    layout->number_of_layer = pgm_read_byte(&(layout_set.layout[layout_index].number_of_layer));
+    for (int i = 0; i < layout->number_of_layer; i++) {
+        load_layer(layout_index, i, &(layout->layer[i]));
     }
-    load_layer_key(layout_index, layer_set->layer_key);
+    load_layer_key(layout_index, layout->layer_key);
 }
 
-void SmallKeyboardV2_1::LoadLayerSet(int layout_index) {
+void SmallKeyboardV2_1::LoadLayout(int layout_index) {
     layout_index %= pgm_read_byte(&(layout_set.number_of_layer));
-    load_layer_set(layout_index, &(keymap_));
+    load_layout(layout_index, &(keymap_));
 }
 
 void SmallKeyboardV2_1::temp_load(const int index) {
-    this->LoadLayerSet(index);
+    this->LoadLayout(index);
 }

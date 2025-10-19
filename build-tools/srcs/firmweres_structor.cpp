@@ -27,7 +27,7 @@ void Layer::Output(std::ofstream &ofs) const {
     // TODO
 }
 
-LayerSet::LayerSet(const std::string &directory_path_arg) : directory_path_(directory_path_arg) {
+Layout::Layout(const std::string &directory_path_arg) : directory_path_(directory_path_arg) {
     for (size_t i = 0; i < LAYER_HEIGHT; i++) {
         for (size_t j = 0; j < LAYER_WIDTH; j++) {
             layer_key_[i][j] = 0;
@@ -35,19 +35,19 @@ LayerSet::LayerSet(const std::string &directory_path_arg) : directory_path_(dire
     }
 }
 
-LayerSet::~LayerSet() {
+Layout::~Layout() {
 
 }
 
-size_t LayerSet::GetLayerCount() const {
+size_t Layout::GetLayerCount() const {
     return layer_.size();
 }
 
-void LayerSet::Parse() {
+void Layout::Parse() {
     // TODO
 }
 
-void LayerSet::Output(std::ofstream &ofs) const {
+void Layout::Output(std::ofstream &ofs) const {
     // TODO
 }
 
