@@ -7,7 +7,7 @@ export function convertKeycode(keycode: string, isMouse: boolean = false): strin
     "PRTSC": "KEY_PRINT_SCREEN", "SCRLK": "KEY_SCROLL_LOCK", "PAUSE": "KEY_PAUSE",
     "`": "'`'", "1": "'1'", "2": "'2'", "3": "'3'", "4": "'4'", "5": "'5'", "6": "'6'", "7": "'7'", "8": "'8'", "9": "'9'", "0": "'0'",
     "-": "'-'", "=": "'='", "BS": "KEY_BACKSPACE",
-    "TAB": "KEY_TAB", "Q": "'q'", "W": "'w'", "E": "'e'", "R": "'r'", "T": "'t'", "Y": "'y'", "U": "'u'", "I": "'i'", "O": "'o'", "P": "'p'", "[": "'['", "]": "]'", "\\": "'\\'",
+    "TAB": "KEY_TAB", "Q": "'q'", "W": "'w'", "E": "'e'", "R": "'r'", "T": "'t'", "Y": "'y'", "U": "'u'", "I": "'i'", "O": "'o'", "P": "'p'", "[": "'['", "]": "']'", "\\": "'\\'",
     "CAPS": "KEY_CAPS_LOCK", "A": "'a'", "S": "'s'", "D": "'d'", "F": "'f'", "G": "'g'", "H": "'h'", "J": "'j'", "K": "'k'", "L": "'l'", ";": "';'", "'": "'\''", "ENT": "KEY_RETURN",
     "L_SHIFT": "KEY_LEFT_SHIFT", "Z": "'z'", "X": "'x'", "C": "'c'", "V": "'v'", "B": "'b'", "N": "'n'", "M": "'m'", ",": "','", ".": "'.'", "/": "'/'", "R_SHIFT": "KEY_RIGHT_SHIFT", "↑": "KEY_UP_ARROW",
     "L_CTRL": "KEY_LEFT_CTRL", "L_GUI": "KEY_LEFT_GUI", "L_ALT": "KEY_LEFT_ALT", "SPACE": "' '", "R_ALT": "KEY_RIGHT_ALT", "R_GUI": "KEY_RIGHT_GUI", "MENU": "KEY_MENU", "R_CTRL": "KEY_RIGHT_CTRL", "←": "KEY_LEFT_ARROW", "↓": "KEY_DOWN_ARROW", "→": "KEY_RIGHT_ARROW",
