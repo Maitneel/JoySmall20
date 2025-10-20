@@ -285,7 +285,7 @@ export class KeyMapEditor {
     data += '#define DEFINE_CUSTOM_SIZE_H_\n';
     data += '\n';
     data += '#define NUMBER_OF_LAYER_SET ' + this.layouts.length + '\n';
-    data += '#define NUMBER_OF_LAYER_SET ' + this.getMaxlayerCount() + '\n';
+    data += '#define NUMBER_OF_LAYER ' + this.getMaxlayerCount() + '\n';
     data += '\n';
     data += '#endif  // DEFINE_CUSTOM_SIZE_H_\n';
     return data;
@@ -299,12 +299,14 @@ export class KeyMapEditor {
     data += '\n'
     data += 'const struct LayoutSet layout_set PROGMEM = {\n'
     data += '    NUMBER_OF_LAYER_SET,\n';
+    data += '    {\n';
     for (let i = 0; i < this.layouts.length; i++) {
       const layoutKeymap = this.layouts[i]?.getKeymap();
       if (layoutKeymap) {
         data += layoutKeymap;
       }
     }
+    data += '    }\n';
     data += '};\n'
     return data;
   }

@@ -104,7 +104,7 @@ export class Layer {
   getJoystickSetting(): string {
     let data: string = '';
     data += '                    {'
-    if (this.joystickMode) {
+    if (this.joystickMode === 'wheel') {
       data += 'true, ';
     } else {
       data += 'false, ';

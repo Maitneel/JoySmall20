@@ -135,7 +135,6 @@ export class Layout {
   getKeymap(): string {
     let data: string = '';
 
-    data += '    {\n';
     data += '        {\n';
     data += '            ' + this.getCountOfLayer() +  ',\n';
     data += '            {\n';
@@ -157,8 +156,7 @@ export class Layout {
     data += '            {\n';
     data += this.getLayerData();
     data += '            }\n';
-    data += '        }\n';
-    data += '    }\n';
+    data += '        },\n';
     return data;
   }
 }
