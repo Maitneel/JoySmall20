@@ -3,3 +3,5 @@
 *.out
 *.tmp
 *.temp
+fp-info-cache
+*kicad_prl
