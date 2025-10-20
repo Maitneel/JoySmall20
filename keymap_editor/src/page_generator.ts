@@ -100,8 +100,8 @@ function createKeyOptionsArea(): HTMLDivElement {
     ['ESC', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'PRTSC', 'SCRLK', 'PAUSE'],
     ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'BS'],
     ['TAB', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\'],
-    ['CAPS', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'ENT'],
-    ['L_SHIFT', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'R_SHIFT'],
+    ['CAPS', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', '\'', 'ENT', '↑'],
+    ['L_SHIFT', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', 'R_SHIFT', '←', '↓', '→'],
     ['L_CTRL', 'L_GUI', 'L_ALT', 'SPACE', 'R_ALT', 'R_GUI', 'MENU', 'R_CTRL'],
   ];
 
