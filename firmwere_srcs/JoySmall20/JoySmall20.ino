@@ -47,10 +47,9 @@ void setup() {
     Keyboard.begin();
     Mouse.begin();
 
-    Serial.begin(9600);
+    // Serial.begin(9600);
 
     my_keyboard.InitilizeJoystickPosition();
-    delay(2000);
 }
 
 
