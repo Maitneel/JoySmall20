@@ -7,7 +7,7 @@
 #include "RotaryEncoder.h"
 #include "SmallKeyboardV2_1.h"
 
-#include "debug.h"
+// #include "debug.h"
 
 extern const struct LayoutSet layout_set PROGMEM;
 
@@ -151,15 +151,24 @@ void send_key_message(const bool status, const unsigned char key_code, unsigned 
 }
 
 void send_joystick_mouse_message(const bool is_wheel, int diff_x, int diff_y) {
+    static long prev_move = abs((long)(millis()));
     if (abs(diff_x) < JOYSTICK_IGNORE_LENGTH && abs(diff_y) < JOYSTICK_IGNORE_LENGTH) {
         return;
     }
 
-    diff_x /= JOYSTICK_MAGNIFICATION;
-    diff_y /= JOYSTICK_MAGNIFICATION;
+    diff_x = diff_x * (abs(diff_x) / JOYSTICK_MAGNIFICATION) / 1024;
+    diff_y = diff_y * (abs(diff_y) / JOYSTICK_MAGNIFICATION) / 1024;
 
+    const long now = abs((long)(millis()));;
     if (is_wheel) {
-        Mouse.move(0, 0, diff_y);
+        if (diff_y != 0 && 100 - abs(diff_y) * 10 < now - prev_move) {
+            if (diff_y < 0) {
+                Mouse.move(0, 0, 1);
+            } else {
+                Mouse.move(0, 0, -1);
+            }
+            prev_move = now;
+        }
     } else {
         Mouse.move(diff_x, diff_y, 0);
     }
