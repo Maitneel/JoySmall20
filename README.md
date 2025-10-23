@@ -67,7 +67,7 @@ ProMicroを表面につける場合
 
 キーマップの書き込みをします。Arduino IDEが必要になるので、インストールされていない場合はインストールしてください。
 
-3. [ファームウェアのソースコード](https://github.com/Maitneel/JoySmall20/releases/tag/latest)をダウンロードします。(Releaseから好きなものをダウンロードすることもできますが、バグがある可能性があるのでlatestをダウンロードすることをお勧めします)
+3. [ファームウェアのソースコード](https://github.com/Maitneel/JoySmall20/releases/latest)をダウンロードします。(Releaseから好きなものをダウンロードすることもできますが、バグがある可能性があるのでlatestをダウンロードすることをお勧めします)
 4. ダウンロードしたソースコードの`define_custom_size.h`と`define_custom_keymap.ino`に2でダウンロードしたファイルに置き換えます。
 5. Arduino IDEで`firmwere_srcs/JoySmall20/JoySmall20.ino`を開き、ProMicroに書き込みます。RESETを2回押すとか連打するとかすると書き込みモードになるはずなのでいろいろ試してみてください。
 
