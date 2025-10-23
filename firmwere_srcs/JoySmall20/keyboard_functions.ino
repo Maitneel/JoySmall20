@@ -225,11 +225,9 @@ void load_layer(const int layout_index, const int layer_index, struct Layer *lay
 void load_layer_key(const int layout_index, uint8_t layer_key[LAYER_HEIGHT][LAYER_WIDTH]) {
     for (int i = 0; i < LAYER_HEIGHT; i++) {
         for (int j = 0; j < LAYER_WIDTH; j++) {
-            layer_key[i][j] = pgm_read_byte(&(layout_set.layout->layer_key[i][j]));
+            layer_key[i][j] = pgm_read_byte(&(layout_set.layout[layout_index].layer_key[i][j]));
         }
-        
     }
-    
 }
 
 void load_layout(const int layout_index, struct Layout *layout) {
