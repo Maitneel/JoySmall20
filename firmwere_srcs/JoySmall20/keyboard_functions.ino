@@ -152,12 +152,12 @@ void send_key_message(const bool status, const unsigned char key_code, unsigned 
 
 void send_joystick_mouse_message(const bool is_wheel, int diff_x, int diff_y) {
     static long prev_move = abs((long)(millis()));
-    if (abs(diff_x) < JOYSTICK_IGNORE_LENGTH && abs(diff_y) < JOYSTICK_IGNORE_LENGTH) {
-        return;
-    }
-
     diff_x = diff_x * (abs(diff_x) / JOYSTICK_MAGNIFICATION) / 1024;
     diff_y = diff_y * (abs(diff_y) / JOYSTICK_MAGNIFICATION) / 1024;
+
+    if (diff_x == 0 && diff_y == 0) {
+        return;
+    }
 
     const long now = abs((long)(millis()));;
     if (is_wheel) {
