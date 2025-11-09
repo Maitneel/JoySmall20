@@ -44,7 +44,7 @@ const struct LayoutSet layout_set PROGMEM = {
                         {'g', 'g', 'g', 'g', 'g'},
                         {'h', 'h', 'h', 'h', 'h'}
                     },
-                    {false, 'J', UNDEFINED_KEY},
+                    {true, 'J', UNDEFINED_KEY},
                     UNDEFINED_KEY,
                     'R',
                 }
